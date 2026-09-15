@@ -4,7 +4,7 @@ from model.vrm_qualification_run20 import buck_inductor_ripple_a, per_phase_metr
 
 class TestVRMQualificationRun20(unittest.TestCase):
     def test_known_ripple(self):
-        self.assertAlmostEqual(buck_inductor_ripple_a(12,4,0.68e-6,600e3),26.1437908,places=5)
+        self.assertAlmostEqual(buck_inductor_ripple_a(12,4,0.68e-6,600e3),6.5359477,places=5)
 
     def test_50a_two_phase_average(self):
         m=per_phase_metrics(50,2,10)
