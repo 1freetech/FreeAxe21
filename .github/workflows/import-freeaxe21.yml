@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'FREEAXE-21_repo.zip'
+      - '.bootstrap/**'
   workflow_dispatch:
 
 permissions:
@@ -16,14 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract engineering bundle
+      - name: Reconstruct and extract engineering bundle
         shell: bash
         run: |
           set -euo pipefail
+          cat .bootstrap/part-*.b64 | base64 -d > /tmp/freeaxe21.zip
           rm -rf /tmp/freeaxe21
           mkdir -p /tmp/freeaxe21
-          unzip -q FREEAXE-21_repo.zip -d /tmp/freeaxe21
+          unzip -q /tmp/freeaxe21.zip -d /tmp/freeaxe21
           cp -a /tmp/freeaxe21/FREEAXE-21/. .
+          rm -rf .bootstrap
           rm -f FREEAXE-21_repo.zip
       - name: Verify engineering tests
         shell: bash
