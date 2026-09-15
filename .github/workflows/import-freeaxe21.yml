@@ -1,0 +1,39 @@
+name: Import FREEAXE 21 bundle
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'FREEAXE-21_repo.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract engineering bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/freeaxe21
+          mkdir -p /tmp/freeaxe21
+          unzip -q FREEAXE-21_repo.zip -d /tmp/freeaxe21
+          cp -a /tmp/freeaxe21/FREEAXE-21/. .
+          rm -f FREEAXE-21_repo.zip
+      - name: Verify engineering tests
+        shell: bash
+        run: python -m unittest discover -s tests -v
+      - name: Commit imported repository tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Import FREEAXE 21 engineering bundle'
+          git push origin main
