@@ -1,7 +1,7 @@
 RefDes,Qty,Function,Candidate family/part,Variant,MPN status,Source status,Release blocker
 U_ASIC1-U_ASIC8,8,SHA-256 ASIC,BM1373,Shared,UNRESOLVED_PACKAGE_SOURCE,Behaviorally calibrated,Yes
 U_CTRL,1,WiFi MCU,ESP32-S3 module,Shared,UNSELECTED,Open Bitaxe precedent,Yes
-U_VRM1-U_VRM8,8,VCORE regulator,TPS546D24S candidate,Shared,CANDIDATE,TI sourced rating,Yes
+U_VRM0A-U_VRM1B,4,VCORE regulator,TPS546D24S candidate,Shared,CANDIDATE,TI sourced rating,Yes
 J_PWR,1,12 V high-current input,Molex Mega-Fit family candidate,Shared,CANDIDATE,Manufacturer family rating,Yes
 F1,1,Input fuse,JCASE 60 A candidate,Shared,CANDIDATE,Manufacturer family rating,Yes
 U_MON*,TBD,Voltage/current telemetry,TBD,Shared,UNSELECTED,Requirement defined,Yes
