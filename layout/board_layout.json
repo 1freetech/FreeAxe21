@@ -1,0 +1,243 @@
+{
+  "layout_version": "run13-two-domain-placement",
+  "classification": "engineering candidate; no routing/fabrication approval",
+  "board": {
+    "width_mm": 180.0,
+    "height_mm": 120.0,
+    "origin": "lower_left",
+    "edge_keepout_mm": 5.0,
+    "dimension_status": "retained after two-domain review",
+    "dimension_rationale": "120 mm board height preserves the shared 120 mm-class Air cooling envelope; 180 mm width leaves separate left input and right control/service zones outside the central cooling footprint."
+  },
+  "shared": {
+    "asic_count": 8,
+    "asic_package_nominal_mm": [
+      10.0,
+      10.0
+    ],
+    "asic_pitch_mm": [
+      16.0,
+      16.0
+    ],
+    "asic_rows": 2,
+    "asic_columns": 4,
+    "domain_count": 2,
+    "chips_per_domain": 4,
+    "cooling_contact_target_mm": [
+      70.0,
+      40.0
+    ],
+    "cooling_contact_rect_mm": [
+      55.0,
+      40.0,
+      70.0,
+      40.0
+    ],
+    "cooling_mount_pitch_mm": [
+      75.0,
+      75.0
+    ],
+    "mount_pattern_center_mm": [
+      90.0,
+      60.0
+    ],
+    "air_cooler_plan_view_mm": [
+      120.0,
+      120.0
+    ],
+    "air_cooler_plan_rect_mm": [
+      30.0,
+      0.0,
+      120.0,
+      120.0
+    ]
+  },
+  "zones": {
+    "input_protection": {
+      "x_mm": 5.0,
+      "y_mm": 35.0,
+      "w_mm": 25.0,
+      "h_mm": 50.0
+    },
+    "domain_a_vrm_pair": {
+      "x_mm": 64.0,
+      "y_mm": 82.0,
+      "w_mm": 42.0,
+      "h_mm": 28.0,
+      "regulators": [
+        "U_VRMA1",
+        "U_VRMA2"
+      ]
+    },
+    "asic_cluster": {
+      "x_mm": 61.0,
+      "y_mm": 47.0,
+      "w_mm": 58.0,
+      "h_mm": 26.0
+    },
+    "domain_b_vrm_pair": {
+      "x_mm": 64.0,
+      "y_mm": 10.0,
+      "w_mm": 42.0,
+      "h_mm": 28.0,
+      "regulators": [
+        "U_VRMB1",
+        "U_VRMB2"
+      ]
+    },
+    "level_shift_telemetry": {
+      "x_mm": 126.0,
+      "y_mm": 37.0,
+      "w_mm": 20.0,
+      "h_mm": 46.0
+    },
+    "control_io": {
+      "x_mm": 150.0,
+      "y_mm": 25.0,
+      "w_mm": 25.0,
+      "h_mm": 70.0
+    }
+  },
+  "domain_geometry": {
+    "domain_a": {
+      "row": "upper",
+      "asic_refs": [
+        "U1",
+        "U2",
+        "U3",
+        "U4"
+      ],
+      "asic_y_mm": 68.0,
+      "vrm_zone": "domain_a_vrm_pair",
+      "nearest_vrm_to_asic_edge_mm": 9.0,
+      "routing_intent": "stacked regulator pair directly above row; VCORE enters row vertically with short broad copper; series-domain ladder runs horizontally through four ASIC positions."
+    },
+    "domain_b": {
+      "row": "lower",
+      "asic_refs": [
+        "U5",
+        "U6",
+        "U7",
+        "U8"
+      ],
+      "asic_y_mm": 52.0,
+      "vrm_zone": "domain_b_vrm_pair",
+      "nearest_vrm_to_asic_edge_mm": 9.0,
+      "routing_intent": "stacked regulator pair directly below row; VCORE enters row vertically with short broad copper; series-domain ladder runs horizontally through four ASIC positions."
+    }
+  },
+  "asics": [
+    {
+      "ref": "U1",
+      "domain": "A",
+      "x_mm": 66.0,
+      "y_mm": 68.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U2",
+      "domain": "A",
+      "x_mm": 82.0,
+      "y_mm": 68.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U3",
+      "domain": "A",
+      "x_mm": 98.0,
+      "y_mm": 68.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U4",
+      "domain": "A",
+      "x_mm": 114.0,
+      "y_mm": 68.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U5",
+      "domain": "B",
+      "x_mm": 66.0,
+      "y_mm": 52.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U6",
+      "domain": "B",
+      "x_mm": 82.0,
+      "y_mm": 52.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U7",
+      "domain": "B",
+      "x_mm": 98.0,
+      "y_mm": 52.0,
+      "rotation_deg": 0
+    },
+    {
+      "ref": "U8",
+      "domain": "B",
+      "x_mm": 114.0,
+      "y_mm": 52.0,
+      "rotation_deg": 0
+    }
+  ],
+  "cooler_mount_holes": [
+    [
+      52.5,
+      22.5
+    ],
+    [
+      127.5,
+      22.5
+    ],
+    [
+      127.5,
+      97.5
+    ],
+    [
+      52.5,
+      97.5
+    ]
+  ],
+  "placement_rules": [
+    "No regulator power-stage component may enter the 70 x 40 mm ASIC cold-plate contact rectangle.",
+    "Each two-regulator stack must remain adjacent to its own four-chip row; cross-domain VCORE routing is forbidden.",
+    "High-current VCORE transition from each VRM zone to its ASIC row is targeted at <=15 mm before detailed routing.",
+    "PMBus, reset, UART level shifting, temperature sensing and other low-current control may occupy the right-side level-shift/telemetry zone.",
+    "12 V distribution may enter both VRM zones from the left, but the old four-branch VRM topology is invalid.",
+    "Air and Hydro use identical PCB coordinates and mounting holes unless physical thermal validation later forces a variant-specific exception."
+  ],
+  "variants": {
+    "air": {
+      "shared_pcb": true,
+      "mechanical_interface": "75x75_mm_square_cooler_mount",
+      "central_cooler_footprint_mm": [
+        120,
+        120
+      ]
+    },
+    "hydro": {
+      "shared_pcb": true,
+      "mechanical_interface": "75x75_mm_square_cold_plate_mount",
+      "minimum_contact_mm": [
+        70,
+        40
+      ]
+    }
+  },
+  "source_constraints": {
+    "gamma_hex": "Open Gamma Hex establishes multi-ASIC domain precedent: six BM1370 as two domains of three and a four-phase TPS546D24S regulator.",
+    "tps546d24s": "TI package is 7 x 5 mm, 40 A each, stackable; placement zone includes regulators plus still-unselected inductors/capacitors and is not a footprint release."
+  },
+  "unresolved_before_routing": [
+    "exact BM1373 package/land-pattern verification",
+    "exact inductor and output-capacitor selection/footprints",
+    "four-chip series-domain node ordering and level-shifter implementation",
+    "stacked TPS546D24S layout copied/adapted from a validated reference implementation",
+    "selected PCB stackup and copper weight",
+    "12 V and VCORE current-density/electrothermal validation"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "run": 14,
+  "design_voltage_v_nominal": 12.0,
+  "input_voltage_v_min": 10.8,
+  "input_voltage_v_max": 13.2,
+  "operational_continuous_input_current_a": 42.0,
+  "connector_path_validation_ceiling_a": 50.0,
+  "short_duration_input_current_a": 55.0,
+  "operational_continuous_power_w_at_12v": 504.0,
+  "reason_for_42a_limit": "At 10.8 V low-line, a 450 W electrical envelope requires 41.67 A. 42 A therefore covers the 400 W core thermal envelope plus a bounded auxiliary/fan allowance without treating the 50 A connector-path ceiling as a normal operating point.",
+  "load_cases": {
+    "measured_reference_linearized_wall_280w": {
+      "power_w": 280.0,
+      "current_a_at_12v": 23.333,
+      "classification": "derived sensitivity from external measured BM1373 reference; not a FREEAXE measurement"
+    },
+    "core_thermal_envelope_400w": {
+      "power_w": 400.0,
+      "current_a_at_10p8v": 37.037,
+      "current_a_at_12v": 33.333,
+      "classification": "engineering envelope"
+    },
+    "electrical_qualification_envelope_450w": {
+      "power_w": 450.0,
+      "current_a_at_10p8v": 41.667,
+      "current_a_at_12v": 37.5,
+      "classification": "engineering qualification envelope including bounded auxiliaries"
+    }
+  },
+  "connector": {
+    "family": "Molex Mega-Fit candidate",
+    "circuits": 4,
+    "positive_contacts": 2,
+    "return_contacts": 2,
+    "family_max_current_a_per_circuit": 30.0,
+    "operational_current_a_per_power_contact_at_42a": 21.0,
+    "validation_ceiling_current_a_per_power_contact_at_50a": 25.0,
+    "wire_range_awg": "16-10",
+    "selected_harness_awg_candidate": 10,
+    "status": "candidate; exact housing/header/terminal PN and connector temperature-rise qualification pending"
+  },
+  "fuse": {
+    "family": "Littelfuse JCASE 32 V candidate",
+    "rating_a": 60,
+    "voltage_rating_v": 32,
+    "location": "upstream of board connector, as close to source as practical",
+    "published_typical_derated_allowed_current_a": {
+      "20c": 60,
+      "65c": 51,
+      "85c": 46,
+      "110c": 38,
+      "125c": 33
+    },
+    "thermal_rule": "42 A continuous envelope is accepted only while fuse ambient/body region remains <=85 C; above 85 C, current must be derated or fuse architecture requalified.",
+    "status": "candidate; final time-current coordination and inrush measurement still required"
+  },
+  "transient_protection": {
+    "tvs": "required but part number intentionally unresolved until source surge/transient environment is defined",
+    "reverse_polarity": "required; implementation intentionally unresolved pending loss/thermal analysis",
+    "bulk_capacitance": "required near connector; value intentionally unresolved pending two-domain VRM transient model",
+    "inrush_control": "required to be evaluated after bulk capacitance and hot-plug source impedance are known"
+  },
+  "distribution": {
+    "topology": "protected 12 V entry feeding two symmetric ASIC VRM input branches plus one auxiliary branch",
+    "asic_domain_count": 2,
+    "asic_count_per_domain": 4,
+    "equal_branch_current_a_at_400w_10p8v": 18.519,
+    "equal_branch_current_a_at_450w_10p8v_before_aux": 20.833,
+    "branch_design_current_a": 22.0,
+    "auxiliary_branch_current_limit_a_candidate": 4.0,
+    "branch_protection": "per-branch protection/current limiting required; exact fuse/eFuse implementation unresolved until inrush and VRM startup are measured",
+    "note": "branch current values are input-side electrical envelopes, not steady-state BM1373 claims"
+  },
+  "pcb_current_path": {
+    "copper_weight_oz_candidate": 2,
+    "entry_strategy": "short connector-to-protection region followed by a low-impedance split into two symmetric VRM branches",
+    "strategy": "wide parallel top/bottom 12 V and return pours with dense via stitching; no neck-downs; reserve optional soldered copper strap/busbar footprints on common trunk and branch entries",
+    "branch_symmetry_requirement": "keep connector-to-domain A and connector-to-domain B path resistance closely matched; quantify after routing",
+    "validation_gate": "IPC-2152-informed/electro-thermal analysis plus prototype temperature-rise measurement required before production"
+  },
+  "provenance": {
+    "connector_family": "Molex Mega-Fit family page: up to 30 A per circuit, 18-10 AWG on current family page",
+    "fuse_family": "Littelfuse JCASE 32 V datasheet: 60 A nominal and typical temperature-derating table",
+    "regulator_input": "TI TPS546D24S supports 2.95-16 V input and 40 A per device, stackable; branch sizing here is 12 V input-side architecture only",
+    "classification": "sourced family ratings + derived load allocation; exact component and PCB qualification pending"
+  }
+}

@@ -1,0 +1,13 @@
+Assembly,Shared/Air/Hydro,Status,Engineering requirement
+PCB outline 180x120 mm,Shared,Candidate,Must be revalidated after real routing
+8x BM1373 cluster,Shared,Candidate,4x2 centered cluster; final footprint/pad geometry must come from validated source
+12 V input / 50 A envelope,Shared,Candidate,Final connector/fuse selection requires inrush and thermal validation
+4x two-ASIC VCORE domains,Shared,Candidate,Final regulator/phase/passive design requires schematic completion
+ESP32-S3 control,Shared,Candidate,Pin map must match final schematic and firmware target
+Fan PWM/tach header,Air,Required,Fail-closed on tach loss
+120 mm forced-air assembly,Air,Candidate,Must prove <=0.1125 K/W at design load or derate
+Copper spreader/vapor chamber,Air,Candidate,Package contact/TIM pressure still unresolved
+Pump PWM/tach,Hydro,Required,Fail-closed on tach/flow loss
+Flow sensor input,Hydro,Required,Shutdown below validated minimum flow threshold
+Cold plate >=70x40 mm,Hydro,Candidate,Contact pressure and thermal resistance require bench validation
+Coolant inlet/outlet sensing,Hydro,Required,Sensor topology and exact parts unresolved

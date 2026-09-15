@@ -1,0 +1,103 @@
+{
+  "dependency": 9,
+  "status": "comparison_updated_from_new_public_BM1373_evidence",
+  "evidence": [
+    {
+      "class": "public measured/report",
+      "system": "Naja Duo",
+      "chips": 2,
+      "hashrate_th_s": 4.4,
+      "power_w": 42,
+      "efficiency_j_th": 9.55,
+      "use": "primary open BM1373 efficiency anchor"
+    },
+    {
+      "class": "commercial published",
+      "system": "Nexus S1-4",
+      "chips": 4,
+      "hashrate_th_s": 10.0,
+      "power_w_range": [
+        100,
+        130
+      ],
+      "efficiency_j_th_range": [
+        10,
+        13
+      ],
+      "use": "secondary multi-chip sustained-product envelope"
+    },
+    {
+      "class": "commercial published",
+      "system": "Nexus S1 15T",
+      "chips": 4,
+      "hashrate_th_s": 15.0,
+      "power_w": 225,
+      "efficiency_j_th": 15.0,
+      "use": "higher-output air-cooled sensitivity point; not open proof"
+    }
+  ],
+  "freeaxe": {
+    "chips": 8,
+    "air": {
+      "sustained_design_target_th_s": 20.0,
+      "power_model_w": {
+        "best_evidence_linear": 191,
+        "conservative_design": 260
+      },
+      "efficiency_range_j_th": [
+        9.55,
+        13.0
+      ],
+      "thermal_design_envelope_w": 400,
+      "rating": "target, not measured/certified"
+    },
+    "hydro": {
+      "sustained_design_target_th_s": 20.6,
+      "power_model_w": {
+        "best_evidence_linear": 197,
+        "conservative_design": 268
+      },
+      "efficiency_range_j_th": [
+        9.55,
+        13.0
+      ],
+      "thermal_design_envelope_w": 400,
+      "experimental_next_th_s": 30.0,
+      "experimental_power_sensitivity_w": {
+        "at_13_j_th": 390,
+        "at_15_j_th": 450
+      },
+      "rating": "20.6 target/estimate; 30 TH/s experimental only"
+    }
+  },
+  "comparison": {
+    "shared_electrical_board": true,
+    "air_advantages": [
+      "simpler loop",
+      "lower BOM/mechanical complexity"
+    ],
+    "air_penalties": [
+      "64-65.5 dBA at high-pressure fan candidates",
+      "thermal performance depends strongly on system P-Q operating point"
+    ],
+    "hydro_advantages": [
+      "lower ASIC thermal resistance potential",
+      "larger sustained tuning headroom",
+      "heat rejection can be moved away from PCB"
+    ],
+    "hydro_penalties": [
+      "pump/flow/radiator complexity",
+      "leak and flow-loss failure modes"
+    ],
+    "decision": "Keep Air at 20 TH/s certification target. Keep Hydro at 20.6 TH/s until hardware exists; permit 30 TH/s only as experimental qualification target."
+  },
+  "release_blockers": [
+    "FREEAXE prototype power measurement",
+    "accepted-share stability soak",
+    "ASIC/VRM temperatures",
+    "Air heatsink P-Q/thermal test",
+    "Hydro pressure-drop/pump/radiator test",
+    "eight-chip UART/domain validation",
+    "final schematic/ERC/routing/DRC/stackup/BOM/CPL/Gerber checks"
+  ]
+}

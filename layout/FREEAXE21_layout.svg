@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 180 120">
+<style>.b{fill:#111;stroke:#40ff70;stroke-width:.6}.z{fill:none;stroke:#aaa;stroke-width:.35}.a{fill:#333;stroke:#40ff70;stroke-width:.4}.v{fill:#2b2b2b;stroke:#ffaa00;stroke-width:.45}.t{font:3px sans-serif;fill:#eee}.c{fill:none;stroke:#00d9ff;stroke-width:.4;stroke-dasharray:2 1}.h{fill:none;stroke:#ff55ff;stroke-width:.5}</style>
+<rect class="b" x="0.5" y="0.5" width="179" height="119"/>
+<rect class="z" x="5" y="35" width="25" height="50"/><text class="t" x="7" y="40">12V IN / PROTECT</text>
+<rect class="v" x="64" y="82" width="42" height="28"/><text class="t" x="67" y="87">DOMAIN A VRM x2</text>
+<rect class="v" x="64" y="10" width="42" height="28"/><text class="t" x="67" y="15">DOMAIN B VRM x2</text>
+<rect class="c" x="55" y="40" width="70" height="40"/><text class="t" x="56" y="44">70x40 THERMAL CONTACT</text>
+<rect class="a" x="61.0" y="63.0" width="10" height="10"/><text class="t" x="63.0" y="69.0">U1</text>
+<rect class="a" x="77.0" y="63.0" width="10" height="10"/><text class="t" x="79.0" y="69.0">U2</text>
+<rect class="a" x="93.0" y="63.0" width="10" height="10"/><text class="t" x="95.0" y="69.0">U3</text>
+<rect class="a" x="109.0" y="63.0" width="10" height="10"/><text class="t" x="111.0" y="69.0">U4</text>
+<rect class="a" x="61.0" y="47.0" width="10" height="10"/><text class="t" x="63.0" y="53.0">U5</text>
+<rect class="a" x="77.0" y="47.0" width="10" height="10"/><text class="t" x="79.0" y="53.0">U6</text>
+<rect class="a" x="93.0" y="47.0" width="10" height="10"/><text class="t" x="95.0" y="53.0">U7</text>
+<rect class="a" x="109.0" y="47.0" width="10" height="10"/><text class="t" x="111.0" y="53.0">U8</text>
+<rect class="z" x="126" y="37" width="20" height="46"/><text class="t" x="127" y="42">LEVEL SHIFT</text>
+<rect class="z" x="150" y="25" width="25" height="70"/><text class="t" x="151" y="30">ESP32 / IO</text>
+<circle class="h" cx="52.5" cy="22.5" r="2"/>
+<circle class="h" cx="127.5" cy="22.5" r="2"/>
+<circle class="h" cx="127.5" cy="97.5" r="2"/>
+<circle class="h" cx="52.5" cy="97.5" r="2"/>
+</svg>

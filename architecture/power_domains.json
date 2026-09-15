@@ -1,0 +1,116 @@
+{
+  "schema_version": "0.3.0",
+  "design": "FREEAXE 21 shared Air/Hydro electrical architecture",
+  "status": "engineering-candidate-not-fabrication-ready",
+  "input": {
+    "nominal_voltage_v": 12.0,
+    "rail_name": "VIN_12V",
+    "existing_input_envelope_a": 50.0
+  },
+  "controller": {
+    "family": "ESP32-S3",
+    "firmware_assumption": "ESP-Miner/AxeOS-compatible",
+    "power_domain": "logic_aux"
+  },
+  "asic": {
+    "model": "BM1373",
+    "count": 8,
+    "hash_chain_order": ["U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8"],
+    "behavioral_only": true,
+    "firmware_per_chip_voltage_options_mv": [1000, 1060, 1100, 1150, 1200, 1250]
+  },
+  "candidate_core_topology": {
+    "voltage_domain_count": 2,
+    "series_asics_per_domain": 4,
+    "domains_in_parallel_at_regulator_input": false,
+    "topology": "two independently regulated four-ASIC series strings",
+    "domains": [
+      {
+        "id": "D0",
+        "asics": ["U1", "U2", "U3", "U4"],
+        "rail": "VCORE_D0",
+        "regulator_stack": ["VRM0A", "VRM0B"]
+      },
+      {
+        "id": "D1",
+        "asics": ["U5", "U6", "U7", "U8"],
+        "rail": "VCORE_D1",
+        "regulator_stack": ["VRM1A", "VRM1B"]
+      }
+    ],
+    "regulator": {
+      "part": "TPS546D24S",
+      "devices_per_domain": 2,
+      "datasheet_current_per_device_a": 40.0,
+      "datasheet_stack_current_per_domain_a": 80.0,
+      "datasheet_vout_max_v": 5.5,
+      "candidate_domain_vout_range_v": [4.0, 5.0],
+      "candidate_vout_derivation": "4 series ASICs × ESP-Miner BM1373 per-chip voltage options 1.00-1.25 V",
+      "pmbus_telemetry": ["vout", "iout", "internal_die_temperature"]
+    },
+    "power_sizing": {
+      "measured_anchor_linearized_board_power_w": 252.0,
+      "classification": "derived: 280 W measured wall anchor × provisional 0.90 wall-to-board factor",
+      "conservative_model_rule": "for regulator-current sizing, treat the entire stated board-power envelope as if delivered by VCORE; this overstates VCORE current because controller/fans/auxiliary loads are excluded from the subtraction",
+      "at_252w_and_4v": {
+        "power_per_domain_w": 126.0,
+        "current_per_domain_a": 31.5,
+        "two_device_stack_utilization_pct": 39.375
+      },
+      "at_400w_and_4v": {
+        "power_per_domain_w": 200.0,
+        "current_per_domain_a": 50.0,
+        "two_device_stack_utilization_pct": 62.5
+      },
+      "at_480w_and_4v": {
+        "power_per_domain_w": 240.0,
+        "current_per_domain_a": 60.0,
+        "two_device_stack_utilization_pct": 75.0
+      }
+    },
+    "why_this_replaces_four_two_chip_domains": [
+      "Four chips at the current ESP-Miner BM1373 voltage options require 4.0-5.0 V per series domain, inside the TPS546D24S PMBus output range up to 5.5 V.",
+      "Two TPS546D24S devices stacked per domain provide 80 A datasheet capability, leaving materially more current headroom than one 40 A device on each two-chip domain.",
+      "Only four TPS546D24S devices are required for eight ASICs instead of the prior eight-device candidate.",
+      "The topology is directionally consistent with Gamma Hex using multi-ASIC series voltage domains and a stacked TPS546D24S regulator, but BM1373 operation with four ASICs per series domain remains unproven."
+    ],
+    "hard_validation_gates": [
+      "BM1373 four-ASIC series-domain startup and steady-state voltage sharing must be proven on hardware.",
+      "Cross-domain UART/clock/reset level shifting must be validated specifically for four series ASICs per domain.",
+      "TPS546D24S compensation, inductors, switching frequency, current limit and thermal solution must be recalculated for the actual selected VCORE/load.",
+      "PMBus telemetry must be checked against independent current/voltage instrumentation before it is trusted for protection.",
+      "No fabrication release while downstream placement, copper, thermal and protection models still reflect the superseded four-domain architecture."
+    ]
+  },
+  "variant_delta": {
+    "Air": {
+      "electrical_core": "shared",
+      "cooling_control": ["fan_pwm", "fan_tach", "asic_temperature", "vrm_temperature"]
+    },
+    "Hydro": {
+      "electrical_core": "shared",
+      "cooling_control": ["pump_enable", "pump_tach", "flow_sensor", "coolant_temperature_in", "coolant_temperature_out", "asic_temperature", "vrm_temperature"],
+      "hard_interlock": "loss_of_flow_must_disable_both_asic_core_rails"
+    }
+  },
+  "source_constraints": [
+    {
+      "source": "bitaxeorg/naja-duo",
+      "date_checked": "2026-09-14",
+      "facts_used": ["dual BM1373", "prototype status", "BOM contains two TPS546D24S for two ASICs"],
+      "confidence": "open-source-primary; untested prototype"
+    },
+    {
+      "source": "bitaxeorg/BitaxeGammaHex",
+      "date_checked": "2026-09-14",
+      "facts_used": ["12 V input", "six BM1370 arranged as two domains of three", "four-phase TPS546D24S regulator", "ESP32-S3"],
+      "confidence": "open-source-primary; different ASIC generation"
+    },
+    {
+      "source": "Texas Instruments TPS546D24S",
+      "date_checked": "2026-09-14",
+      "facts_used": ["40 A per device", "2x-4x stackable up to 160 A", "0.25-5.5 V via PMBus", "VOUT/IOUT/die-temperature telemetry"],
+      "confidence": "manufacturer datasheet"
+    }
+  ]
+}

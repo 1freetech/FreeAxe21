@@ -1,0 +1,15 @@
+RefDes,Qty,Function,Candidate family/part,Variant,MPN status,Source status,Release blocker
+U_ASIC1-U_ASIC8,8,SHA-256 ASIC,BM1373,Shared,UNRESOLVED_PACKAGE_SOURCE,Behaviorally calibrated,Yes
+U_CTRL,1,WiFi MCU,ESP32-S3 module,Shared,UNSELECTED,Open Bitaxe precedent,Yes
+U_VRM1-U_VRM8,8,VCORE regulator,TPS546D24S candidate,Shared,CANDIDATE,TI sourced rating,Yes
+J_PWR,1,12 V high-current input,Molex Mega-Fit family candidate,Shared,CANDIDATE,Manufacturer family rating,Yes
+F1,1,Input fuse,JCASE 60 A candidate,Shared,CANDIDATE,Manufacturer family rating,Yes
+U_MON*,TBD,Voltage/current telemetry,TBD,Shared,UNSELECTED,Requirement defined,Yes
+U_TEMP*,TBD,ASIC/VRM temperature sensing,TBD,Shared,UNSELECTED,Requirement defined,Yes
+J_FAN,1,Fan PWM/tach connector,TBD,Air,UNSELECTED,Requirement defined,Yes
+FAN1,1,Primary air mover,Delta QFR1212GHEXUM candidate,Air,CANDIDATE,Manufacturer sourced,No for architecture / Yes for production BOM
+HS1,1,Heatsink/spreader,Custom 120 mm class assembly,Air,CUSTOM_UNDESIGNED,Engineering candidate,Yes
+J_PUMP,1,Pump PWM/tach connector,TBD,Hydro,UNSELECTED,Requirement defined,Yes
+FLOW1,1,Coolant flow sensor,TBD,Hydro,UNSELECTED,Requirement defined,Yes
+T_IN/T_OUT,2,Coolant temperature sensors,TBD,Hydro,UNSELECTED,Requirement defined,Yes
+CP1,1,Copper cold plate,Custom >=70x40 mm active area,Hydro,CUSTOM_UNDESIGNED,Engineering candidate,Yes

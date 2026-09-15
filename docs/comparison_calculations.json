@@ -1,0 +1,10 @@
+{
+  "air_20TH_9_55J": 191.0,
+  "air_20TH_13J": 260,
+  "hydro_20_6TH_9_55J": 196.7,
+  "hydro_20_6TH_13J": 267.8,
+  "hydro_30TH_13J": 390,
+  "hydro_30TH_15J": 450,
+  "air_headroom_400W_vs_260W": 140,
+  "hydro_headroom_400W_vs_268W": 132
+}

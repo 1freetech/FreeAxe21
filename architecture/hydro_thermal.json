@@ -1,0 +1,76 @@
+{
+  "dependency": 7,
+  "variant": "FREEAXE 21 Hydro",
+  "status": "candidate_unvalidated",
+  "shared_board": {
+    "asic": "BM1373",
+    "count": 8,
+    "domains": 2,
+    "asics_per_domain": 4,
+    "board_mm": [
+      180,
+      120
+    ],
+    "cold_plate_contact_min_mm": [
+      70,
+      40
+    ],
+    "mount_pitch_mm": [
+      75,
+      75
+    ]
+  },
+  "rated_reference": {
+    "hashrate_th_s": 20.6,
+    "board_power_w": 252,
+    "classification": "derived from external measured BM1373 system anchor; not FREEAXE measurement"
+  },
+  "thermal_envelopes": {
+    "normal_model_w": 252,
+    "design_w": 400,
+    "electrical_stress_w": 480
+  },
+  "coolant": {
+    "reference": "water",
+    "inlet_design_c": 30,
+    "nominal_flow_lpm": 1.5,
+    "throttle_flow_lpm": 1.0,
+    "shutdown_flow_lpm": 0.5,
+    "cp_j_kgk": 4180,
+    "density_kg_l": 0.995
+  },
+  "cold_plate": {
+    "material": "copper",
+    "type": "full ASIC-cluster coverage",
+    "minimum_contact_mm": [
+      70,
+      40
+    ],
+    "tim": "thin electrically nonconductive high-performance paste/pad; exact product and bondline TBD",
+    "contact_pressure": "TBD by package/mechanical validation; no invented pressure value",
+    "vrm_contact": "none; VRMs require separate airflow/conduction path"
+  },
+  "heat_exchanger": {
+    "ambient_c": 25,
+    "target_mean_coolant_c": 35,
+    "required_ua_w_per_k_at_400w": 40.0,
+    "rule": "UA is a system-level qualification target; radiator size labels alone are not proof"
+  },
+  "interlocks": {
+    "flow_below_0_5_lpm": "SHUTDOWN",
+    "flow_0_5_to_1_0_lpm": "THROTTLE",
+    "pump_tach_loss": "SHUTDOWN",
+    "coolant_outlet_ge_45c": "SHUTDOWN",
+    "sensor_fault": "SHUTDOWN"
+  },
+  "blockers": [
+    "measured FREEAXE board power",
+    "BM1373 package-to-cold-plate thermal resistance",
+    "cold-plate channel geometry and pressure drop",
+    "pump curve at actual loop restriction",
+    "radiator/fan UA measured at intended airflow",
+    "TIM bondline/contact-pressure validation",
+    "VRM temperature with cold plate installed",
+    "soak and flow-loss fault testing"
+  ]
+}

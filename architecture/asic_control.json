@@ -1,0 +1,97 @@
+{
+  "dependency": 6,
+  "variants": [
+    "FREEAXE 21 Air",
+    "FREEAXE 21 Hydro"
+  ],
+  "shared_control": true,
+  "asic": {
+    "model": "BM1373",
+    "count": 8,
+    "behavioral_model_only": true
+  },
+  "controller": {
+    "family": "ESP32-S3",
+    "firmware_assumption": "ESP-Miner/AxeOS compatible",
+    "firmware_gate": "custom FREEAXE board profile required; upstream BM1373 driver behavior must be validated on 8-chip chain"
+  },
+  "chain": {
+    "topology": "single 8-chip logical UART daisy chain spanning two four-chip voltage domains",
+    "domain_A": [
+      "U1",
+      "U2",
+      "U3",
+      "U4"
+    ],
+    "domain_B": [
+      "U5",
+      "U6",
+      "U7",
+      "U8"
+    ],
+    "boundary_rule": "domain-crossing signals require level-shifting topology copied/adapted only from validated open hardware; no guessed direct connection",
+    "addressing": "discover all 8 before enabling hashing",
+    "partial_chain_policy": "fail closed; do not hash with missing ASICs"
+  },
+  "reset": {
+    "policy": "controller-controlled common reset with domain-safe level translation",
+    "startup": "hold reset through rail stabilization and cooling interlock validation",
+    "fault": "assert reset before disabling VCORE where sequencing permits"
+  },
+  "clock": {
+    "status": "UNRESOLVED_PHYSICAL",
+    "rule": "do not freeze oscillator frequency, amplitude, termination, or fanout until validated from BM1373 open hardware or measurement",
+    "pll": "firmware may program BM1373 PLL only using verified upstream register behavior"
+  },
+  "telemetry": {
+    "required": [
+      "detected_asic_count",
+      "accepted_shares",
+      "rejected_shares",
+      "asic_result_activity",
+      "domain_A_vout",
+      "domain_A_iout",
+      "domain_B_vout",
+      "domain_B_iout",
+      "vrm_temperature",
+      "input_voltage",
+      "input_current",
+      "cooling_interlock",
+      "fan_or_pump_tach"
+    ],
+    "temperature": "external/board sensing required; BM1373 junction sensing path remains unclaimed until verified"
+  },
+  "state_machine": {
+    "BOOT": [
+      "RESET_ASSERTED"
+    ],
+    "POWER_VALIDATE": [
+      "12V_OK",
+      "AUX_OK",
+      "VCORE_A_OK",
+      "VCORE_B_OK"
+    ],
+    "COOLING_VALIDATE": [
+      "AIR_TACH_OK_or_HYDRO_FLOW_PUMP_OK"
+    ],
+    "DISCOVER": [
+      "ASIC_COUNT_8"
+    ],
+    "RUN": [
+      "UART_HEALTHY",
+      "TELEMETRY_HEALTHY"
+    ],
+    "FAULT": [
+      "ASSERT_RESET",
+      "DISABLE_HASHING",
+      "LATCH_REASON"
+    ]
+  },
+  "manufacturing_blockers": [
+    "validated BM1373 signal-level schematic for four-chip voltage-domain crossing",
+    "physical clock source/fanout/termination values",
+    "exact level-shifter MPNs and passive values",
+    "bench proof of eight-chip discovery and stable share submission",
+    "fault-injection validation for missing ASIC, UART failure, and cooling loss"
+  ]
+}

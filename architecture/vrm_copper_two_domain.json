@@ -1,0 +1,63 @@
+{
+  "variant_scope": [
+    "FREEAXE 21 Air",
+    "FREEAXE 21 Hydro"
+  ],
+  "dependency": 5,
+  "status": "candidate_unvalidated",
+  "topology": {
+    "domains": 2,
+    "asics_per_domain": 4,
+    "regulators_per_domain": 2,
+    "regulator": "TPS546D24S",
+    "regulator_stack_current_nameplate_a": 80,
+    "engineering_continuous_limit_a": 60,
+    "reason": "75% of stacked 80 A nameplate retained as provisional continuous ceiling pending thermal/inductor validation"
+  },
+  "domain_points": [
+    {
+      "name": "reference_252W_board",
+      "total_core_w": 252,
+      "domain_voltage_v": 4.0,
+      "domain_current_a": 31.5
+    },
+    {
+      "name": "thermal_envelope_400W",
+      "total_core_w": 400,
+      "domain_voltage_v": 4.0,
+      "domain_current_a": 50.0
+    },
+    {
+      "name": "electrical_stress_480W",
+      "total_core_w": 480,
+      "domain_voltage_v": 4.0,
+      "domain_current_a": 60.0
+    }
+  ],
+  "copper_candidate": {
+    "length_mm": 15,
+    "parallel_layers": 2,
+    "width_per_layer_mm": 20,
+    "copper_oz": 2,
+    "copper_thickness_um": 70,
+    "rho20_ohm_m": 1.724e-08,
+    "alpha_per_c": 0.00393,
+    "temperature_check_c": 80,
+    "via_requirement": "dense stitched transition; exact via count is unresolved until stackup and drill are selected",
+    "qualification": "analytical only; must be replaced by routed geometry + IPC/field-solver/thermal validation"
+  },
+  "limits": {
+    "max_domain_drop_mv_at_50a_80c": 10,
+    "max_domain_copper_loss_w_at_50a_80c": 0.6,
+    "no_manufacturing_release": true
+  },
+  "open_items": [
+    "inductor MPN, DCR, saturation current and temperature rise",
+    "TPS546D24S switching frequency and compensation",
+    "output capacitor bank and transient response",
+    "exact PCB stackup and copper weight tolerance",
+    "via array geometry and current crowding",
+    "four-BM1373 series-domain startup and voltage sharing",
+    "bench validation at 31.5 A, 50 A and fault conditions"
+  ]
+}

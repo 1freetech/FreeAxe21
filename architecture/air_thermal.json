@@ -1,0 +1,121 @@
+{
+  "dependency": 8,
+  "variant": "FREEAXE 21 Air",
+  "status": "candidate_unvalidated",
+  "shared_board": {
+    "asic": "BM1373",
+    "count": 8,
+    "domains": 2,
+    "asics_per_domain": 4,
+    "board_mm": [
+      180,
+      120
+    ],
+    "thermal_contact_min_mm": [
+      70,
+      40
+    ],
+    "mount_pitch_mm": [
+      75,
+      75
+    ]
+  },
+  "rated_reference": {
+    "hashrate_th_s": 20.0,
+    "board_power_reference_w": 252,
+    "classification": "design target using external BM1373 system anchor; not FREEAXE measurement"
+  },
+  "thermal_envelopes": {
+    "reference_w": 252,
+    "design_w": 400
+  },
+  "ambient_design_c": 25,
+  "cooler": {
+    "base": "copper vapor chamber or machined copper spreader",
+    "contact_min_mm": [
+      70,
+      40
+    ],
+    "fin_stack_target_mm": [
+      120,
+      120,
+      60
+    ],
+    "duct": "sealed 120 mm fan-to-fin shroud",
+    "vrm": "separate forced-air path required; no assumption that ASIC cold spreader cools VRMs"
+  },
+  "fan_candidates": {
+    "primary": {
+      "maker": "Delta",
+      "model": "QFR1212GHE",
+      "size_mm": [
+        120,
+        120,
+        38
+      ],
+      "rpm": 6000,
+      "free_air_cfm": 210.38,
+      "max_static_pressure_mmH2O": 29.18,
+      "power_w": 21.6,
+      "noise_dBA": 64.0
+    },
+    "high_pressure": {
+      "maker": "Delta",
+      "model": "PFR1212UHE",
+      "size_mm": [
+        120,
+        120,
+        38
+      ],
+      "rpm": 6600,
+      "free_air_cfm": 228.65,
+      "max_static_pressure_mmH2O": 30.63,
+      "power_w": 32.4,
+      "noise_dBA": 65.5
+    },
+    "quiet_reference": {
+      "maker": "Delta",
+      "model": "AFB1212HHE",
+      "size_mm": [
+        120,
+        120,
+        38
+      ],
+      "rpm": 2900,
+      "free_air_cfm": 120.07,
+      "max_static_pressure_mmH2O": 9.0,
+      "power_w": 5.52,
+      "noise_dBA": 44.0
+    }
+  },
+  "qualification": {
+    "base_limit_c": 70,
+    "throttle_base_c": 65,
+    "theta_sa_max_K_W_at_400W_25C": 0.1125,
+    "theta_sa_max_K_W_at_252W_25C": 0.17857,
+    "actual_airflow_required": true,
+    "free_air_cfm_is_not_operating_airflow": true
+  },
+  "interlocks": {
+    "fan_tach_loss": "SHUTDOWN",
+    "sensor_fault": "SHUTDOWN",
+    "base_ge_70C": "SHUTDOWN",
+    "base_65_to_70C": "THROTTLE",
+    "vrm_ge_100C": "SHUTDOWN",
+    "vrm_90_to_100C": "THROTTLE"
+  },
+  "derating": {
+    "rule": "20 TH/s is not sustained-certified until physical cooler demonstrates thermal target at actual fan operating point",
+    "quiet_fan": "not accepted for 400 W envelope without measured sink curve; low static-pressure headroom",
+    "high_pressure_fan": "allowed only if measured system curve/thermal test requires it; noise and auxiliary power penalty explicit"
+  },
+  "blockers": [
+    "measured FREEAXE board power",
+    "fan/system operating point from P-Q and restriction curve",
+    "measured sink-to-air thermal resistance",
+    "ASIC package/spreader temperature relationship",
+    "VRM temperatures under duct",
+    "vapor chamber/heatpipe mechanical validation",
+    "long-duration soak and fan-failure tests"
+  ]
+}

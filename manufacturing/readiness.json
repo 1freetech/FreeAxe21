@@ -1,0 +1,34 @@
+{
+  "project": "FREEAXE 21",
+  "variants": ["Air", "Hydro"],
+  "status": "NOT_READY_FOR_FABRICATION",
+  "shared_board": true,
+  "required_gates": {
+    "schematic_complete": false,
+    "schematic_erc_zero_unresolved_errors": false,
+    "footprints_verified": false,
+    "pcb_routing_complete": false,
+    "pcb_drc_zero_unresolved_errors": false,
+    "stackup_selected": false,
+    "controlled_current_paths_validated": false,
+    "thermal_mechanical_validation_complete": false,
+    "bom_complete_with_manufacturer_part_numbers": false,
+    "cpl_generated_from_routed_board": false,
+    "gerbers_generated_from_routed_board": false,
+    "drill_files_generated_from_routed_board": false,
+    "fabrication_output_review_complete": false
+  },
+  "validated_prerequisites": {
+    "bm1373_behavioral_calibration": true,
+    "power_domain_architecture": true,
+    "candidate_board_geometry": true,
+    "input_power_envelope": true,
+    "vrm_copper_candidate_limits": true,
+    "asic_control_architecture": true,
+    "hydro_reduced_order_model": true,
+    "air_reduced_order_model": true,
+    "variant_performance_comparison": true
+  },
+  "blocked_outputs": ["Gerber", "Excellon drill", "CPL/position", "production BOM", "JLCPCB-ready package"],
+  "reason": "No validated KiCad schematic/PCB routing, ERC/DRC report, selected stackup, or complete MPN-level BOM exists yet."
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "project": "FREEAXE 21 Air + Hydro",
+  "asic": {
+    "model": "BM1373",
+    "classification": "behavioral/open-reference constrained",
+    "chip_count": 8,
+    "small_core_count_per_chip": 6725,
+    "hash_domains_per_chip": 4,
+    "default_frequency_mhz": 327,
+    "frequency_options_mhz": [
+      327,
+      350,
+      375,
+      380,
+      400,
+      410
+    ],
+    "default_voltage_mv": 1000,
+    "voltage_options_mv": [
+      1000,
+      1060,
+      1100,
+      1150,
+      1200,
+      1250
+    ],
+    "theoretical_hashrate_formula": "TH/s = chip_count * small_core_count_per_chip * frequency_mhz * 1e6 / 1e12",
+    "source_status": "Upstream ESP-Miner values; Naja Duo hardware remains an untested prototype per its README"
+  },
+  "reference_family": {
+    "name": "NajaDuo",
+    "asic_count": 2,
+    "nominal_input_voltage_v": 12,
+    "voltage_domains": 2,
+    "firmware_family_max_power_w": 60,
+    "warning": "max_power is a firmware family limit, not a measured BM1373 consumption datapoint"
+  },
+  "freeaxe21_candidates": {
+    "air": {
+      "current_best_sustained_estimate_ths": 20.0,
+      "measured_anchor_linearized_ceiling_ths": 20.6,
+      "derived_wall_power_at_20_6_ths_w": 280.0,
+      "derived_wall_efficiency_j_th": 13.59,
+      "status": "sustained certification target held below the 8-chip linearized measured anchor until FREEAXE soak data exists"
+    },
+    "hydro": {
+      "current_best_sustained_estimate_ths": 20.6,
+      "derived_wall_power_w": 280.0,
+      "derived_wall_efficiency_j_th": 13.59,
+      "status": "highest present sustained estimate justified by independently measured 4-chip behavior scaled to eight chips; still not a FREEAXE measurement"
+    },
+    "firmware_option_ceiling": {
+      "frequency_mhz": 410,
+      "theoretical_hashrate_ths": 22.058,
+      "status": "hashrate-only mathematical ceiling from current upstream selectable frequency; not a sustained-performance claim"
+    },
+    "experimental_only": {
+      "nmaxe_math_ceiling_ths": 48.0,
+      "prior_hydro_30_ths_target": "retained only as an experimental validation target, not current sustained estimate",
+      "rule": "do not promote above 20.6 TH/s sustained until FREEAXE-specific watts, accepted-share stability, VRM and thermal soak data support it"
+    }
+  },
+  "sources": [
+    {
+      "project": "bitaxeorg/ESP-Miner",
+      "file": "main/device_config.h",
+      "commit": "1df7ba1ec12833045693cf1352042e8d78628c22",
+      "facts": [
+        "BM1373 frequency options",
+        "BM1373 voltage options",
+        "6725 small cores",
+        "4 hash domains",
+        "NajaDuo 2 ASIC / 12 V / 2 voltage domains / 60 W family max"
+      ]
+    },
+    {
+      "project": "bitaxeorg/ESP-Miner",
+      "file": "configs/config-1201.csv",
+      "commit": "1df7ba1ec12833045693cf1352042e8d78628c22",
+      "facts": [
+        "NajaDuo default 327 MHz",
+        "NajaDuo default 1000 mV"
+      ]
+    },
+    {
+      "project": "bitaxeorg/naja-duo",
+      "file": "README.md",
+      "facts": [
+        "Dual BM1373",
+        "uses esp-miner",
+        "prototype explicitly described as untested"
+      ]
+    },
+    {
+      "project": "NMminer1024/ESP-Miner-NMAxe",
+      "url": "https://github.com/NMminer1024/ESP-Miner-NMAxe",
+      "date": "2026-07-21",
+      "facts": [
+        "BM1373 driver open-sourced",
+        "approximately 6 TH/s per chip in testing; no power/temperature/duration disclosed"
+      ]
+    },
+    {
+      "project": "The Hobbyist Miner Nexus S1 prototype review",
+      "url": "https://thehobbyistminer.io/the-nexus-s1-surprised-everyone-with-10th-s-of-bm1373-power/",
+      "facts": [
+        "4x BM1373",
+        "10.3 TH/s local after 15 minutes",
+        "10.69 TH/s pool side",
+        "about 140 W wall",
+        "55 dBA",
+        "78-82 C hotspots"
+      ]
+    }
+  ],
+  "evidence_update_2026_09_14": {
+    "independent_measured_anchor": {
+      "device": "Nexus S1 prototype",
+      "chips": 4,
+      "hashrate_ths": 10.3,
+      "pool_side_hashrate_ths": 10.69,
+      "wall_power_w": 140,
+      "review_runtime_minutes": 15,
+      "hotspots_c": "78-82",
+      "classification": "independent measured system; different board/cooler/PSU from FREEAXE"
+    },
+    "open_firmware_test_claim": {
+      "project": "NMminer1024/ESP-Miner-NMAxe",
+      "date": "2026-07-21",
+      "claim_ths_per_chip_approx": 6.0,
+      "classification": "open firmware test claim; no disclosed power/temperature/duration, not sustained-design evidence"
+    }
+  }
+}
